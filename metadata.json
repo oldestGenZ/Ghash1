@@ -1,0 +1,7 @@
+{
+  "name": "Copy of GreenHash",
+  "description": "GreenHash turns your positive environmental and social actions into verifiable on-chain credentials and tangible rewards.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
