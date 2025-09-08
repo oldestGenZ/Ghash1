@@ -54,4 +54,13 @@ export const tools: Tool[] = [
     ecoImpactScore: 'Good',
     link: 'https://giveth.io/',
   },
+  {
+    id: 'tool_6',
+    name: 'Taraxa',
+    logo: 'T',
+    description: 'A fast and scalable public ledger designed for audit logging, utilizing an efficient Proof-of-Stake consensus to minimize its ecological footprint.',
+    category: 'Eco-Vetted',
+    ecoImpactScore: 'Good',
+    link: 'https://www.taraxa.io/',
+  },
 ];

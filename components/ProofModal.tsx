@@ -43,7 +43,22 @@ const ProofModal: React.FC<ProofModalProps> = ({ isOpen, onClose, onSubmit, ques
         },
         (error) => {
           console.error("Geolocation error:", error);
-          setLocationStatus(`Error: ${error.message}. Please enable location services.`);
+          let errorMessage: string;
+          switch (error.code) {
+            case 1: // PERMISSION_DENIED
+              errorMessage = "Permission denied. Please enable location services in your browser settings.";
+              break;
+            case 2: // POSITION_UNAVAILABLE
+              errorMessage = "Location is currently unavailable. Please try again later.";
+              break;
+            case 3: // TIMEOUT
+              errorMessage = "The request for your location timed out.";
+              break;
+            default:
+              errorMessage = "An unexpected error occurred.";
+              break;
+          }
+          setLocationStatus(`Error: ${errorMessage}`);
         },
         { enableHighAccuracy: true }
       );

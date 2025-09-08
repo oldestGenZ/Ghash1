@@ -26,7 +26,7 @@ export const quests: Quest[] = [
     },
     {
         "id": "q_map_erosion",
-        "title": "Map erosion (GPS + on-chain log)",
+        "title": "Map erosion (GPS + Taraxa log)",
         "type": "ecorep",
         "requiresProof": true,
         "location": { "lat": 34.0522, "lng": -118.2437 }, // Example: Los Angeles
