@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI, Type } from "@google/genai";
 import type { Chat } from "@google/genai";
 import Header from './components/Header';
+import MissionStatement from './components/MissionStatement';
 import ChatMessage from './components/ResponseDisplay';
 import type { Message } from './components/ResponseDisplay';
 import QuestBoard from './components/QuestBoard';
@@ -10,6 +10,7 @@ import { quests } from './data/Quests';
 import type { Quest } from './data/Quests';
 import Stats from './components/Stats';
 import ProofModal from './components/ProofModal';
+import ToolHub from './components/ToolHub';
 
 const USER_ID = 'user_01'; // Simulated user ID
 
@@ -68,7 +69,7 @@ The user input will be in a key-value format.
 2.  **EcoRep Unlock:** If a user's action is exemplary, shows leadership, or strong proof, and their score is 80 or higher, trigger a special unlock event.
     - Set \`unlockTitle\` to "EcoRep unlock 🌱".
     - Set \`unlockMessage\` to "Your care is now on-chain and visible. You’ve earned the EcoRep badge."
-    - Set \`reward\` to "+25 $HASH + governance weight boost".
+    - Set \`reward\` to "+25 $GHASH + governance weight boost".
 
 3.  **Missing Proof:** If the user's proof is vague, missing, or insufficient for the action claimed (e.g., a financial transaction without an on-chain link, or a physical action without a media link), request more information.
     - Set \`missingProofTitle\` to "Missing proof 🧾".
@@ -146,7 +147,7 @@ Strictly follow the JSON output format.`;
         template = `UserType: User1\nWallet: 0x...\nActions: Posted a Kaito take\nProof: mediaLink=https://kaito.com/...\nNotes: Shared my perspective on eco-governance.`;
         break;
       case "q_trade_swap":
-        template = `UserType: User2\nWallet: 0x...\nActions: Made first swap on a DEX\nProof: onChainLink=https://... (swap transaction)\nNotes: Swapped ETH for HASH.`;
+        template = `UserType: User2\nWallet: 0x...\nActions: Made first swap on a DEX\nProof: onChainLink=https://... (swap transaction)\nNotes: Swapped ETH for GHASH.`;
         break;
       default:
         template = `Actions: ${quest.title}\nProof: ...`;
@@ -212,7 +213,7 @@ Strictly follow the JSON output format.`;
         
         // Grant special rewards from an unlock
         if (parsedResponse.reward) {
-          const hashMatch = parsedResponse.reward.match(/\+(\d+)\s*\$HASH/);
+          const hashMatch = parsedResponse.reward.match(/\+(\d+)\s*\$GHASH/);
           if (hashMatch?.[1]) {
             setHash(prevHash => prevHash + parseInt(hashMatch[1], 10));
           }
@@ -327,6 +328,10 @@ Strictly follow the JSON output format.`;
         <Header />
         <main className="mt-8 flex flex-col flex-grow">
           <div className="mb-8">
+            <MissionStatement />
+          </div>
+
+          <div className="mb-8">
             <Stats
               xp={xp}
               hash={hash}
@@ -336,6 +341,8 @@ Strictly follow the JSON output format.`;
             />
           </div>
           
+          <ToolHub />
+
           <QuestBoard 
             quests={quests}
             onSelectQuest={handleSelectQuest}
@@ -360,9 +367,6 @@ Strictly follow the JSON output format.`;
               {chatHistory.map((msg) => (
                 <ChatMessage key={msg.id} message={msg} />
               ))}
-              {isLoading && (
-                  <ChatMessage key="loading" message={{id: 'loading', role: 'model', content: '... thinking ...'}} />
-              )}
               {error && (
                 <div className="bg-red-900/50 border border-red-700 text-red-200 p-4 rounded-lg">
                     <h3 className="font-bold">A shadow falls.</h3>
@@ -384,8 +388,9 @@ Strictly follow the JSON output format.`;
                     handleSendMessage(e as unknown as React.FormEvent);
                   }
                 }}
-                className="flex-grow max-h-40 p-3 bg-brand-primary border border-green-800 rounded-lg text-brand-text-secondary font-mono text-sm focus:ring-2 focus:ring-brand-accent focus:border-brand-accent transition-colors resize-none"
-                placeholder={'Consult EcoSage...'}
+                disabled={isLoading}
+                className="flex-grow max-h-40 p-3 bg-brand-primary border border-green-800 rounded-lg text-brand-text-secondary font-mono text-sm focus:ring-2 focus:ring-brand-accent focus:border-brand-accent transition-colors resize-none disabled:bg-brand-secondary disabled:cursor-not-allowed"
+                placeholder={isLoading ? 'EcoSage is thinking...' : 'Consult EcoSage...'}
                 aria-label="Chat with EcoSage"
                 rows={1}
               />

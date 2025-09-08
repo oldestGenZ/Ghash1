@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface StatsProps {
@@ -31,7 +30,7 @@ const Stats: React.FC<StatsProps> = ({ xp, hash, badges, completedQuests, totalQ
             <h3 className="text-lg font-bold font-serif text-brand-text">EcoRep Journey</h3>
             <div className="flex items-center">
               <span className="text-sm font-semibold text-brand-accent">{xp.toLocaleString()} XP</span>
-              <span className="text-sm font-semibold text-green-300 ml-4">{hash.toLocaleString()} $HASH</span>
+              <span className="text-sm font-semibold text-green-300 ml-4">{hash.toLocaleString()} $GHASH</span>
             </div>
           </div>
           <div className="w-full bg-brand-primary rounded-full h-2.5 mb-2">
@@ -58,6 +57,11 @@ const Stats: React.FC<StatsProps> = ({ xp, hash, badges, completedQuests, totalQ
           <button onClick={handleLeaderboardClick} className="w-full bg-brand-primary hover:bg-green-900/60 text-brand-text font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
             🏆 View Leaderboard
           </button>
+          <a href="https://t.me/DIP_ATH_bot" target="_blank" rel="noopener noreferrer" className="w-full">
+            <button className="w-full bg-brand-primary hover:bg-green-900/60 text-brand-text font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
+              🤖 Try on Telegram
+            </button>
+          </a>
           <button onClick={handleInviteClick} className="w-full bg-brand-primary hover:bg-green-900/60 text-brand-text font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
             📬 Invite Friends
           </button>

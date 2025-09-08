@@ -23,7 +23,7 @@ const QuestBoard: React.FC<QuestBoardProps> = ({ quests, onSelectQuest, onOpenPr
   };
 
   return (
-    <div className="mb-8">
+    <div className="my-8">
       <h2 className="text-2xl font-bold font-serif text-brand-text mb-4">Missions &amp; Quests</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {quests.map((quest) => {
@@ -56,7 +56,7 @@ const QuestBoard: React.FC<QuestBoardProps> = ({ quests, onSelectQuest, onOpenPr
                     <div className="text-sm text-brand-text-secondary mb-4">
                         <span>XP: {quest.rewards.xp}</span>
                         <span className="mx-2">|</span>
-                        <span>$HASH: {quest.rewards.hash}</span>
+                        <span>$GHASH: {quest.rewards.hash}</span>
                         {quest.rewards.badge && (
                             <>
                             <span className="mx-2">|</span>

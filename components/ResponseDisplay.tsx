@@ -25,6 +25,21 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     );
   }
 
+  // Handle initial placeholder for model's response
+  if (message.role === 'model' && message.content === '...' && !message.response) {
+      return (
+        <div className="flex justify-start group">
+            <div className="bg-brand-secondary rounded-xl rounded-bl-none shadow-md p-4 max-w-lg animate-fade-in">
+                <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-brand-accent rounded-full animate-pulse-fast" style={{animationDelay: '0s'}}></div>
+                    <div className="w-2 h-2 bg-brand-accent rounded-full animate-pulse-fast" style={{animationDelay: '150ms'}}></div>
+                    <div className="w-2 h-2 bg-brand-accent rounded-full animate-pulse-fast" style={{animationDelay: '300ms'}}></div>
+                </div>
+            </div>
+        </div>
+      );
+  }
+
   const { response, content } = message;
 
   if (!response) {
